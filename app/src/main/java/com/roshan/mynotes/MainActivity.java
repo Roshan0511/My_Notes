@@ -40,6 +40,7 @@ import com.roshan.mynotes.databinding.ActivityMainBinding;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Recycler View ---------------------------------------------------------
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL));
-        initRecyclerView(auth.getCurrentUser());
+        initRecyclerView(Objects.requireNonNull(auth.getCurrentUser()));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(binding.recyclerView);
@@ -75,13 +76,14 @@ public class MainActivity extends AppCompatActivity {
                 View view  = LayoutInflater.from(MainActivity.this).inflate(R.layout.notes_dialog, null);
 
                 EditText noteEdit = view.findViewById(R.id.addNoteText);
+                EditText heading = view.findViewById(R.id.addHeadingText);
 
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
                         .setView(view)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                addNotes(noteEdit.getText().toString());
+                                addNotes(noteEdit.getText().toString(), heading.getText().toString());
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -101,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Add Notes via Dialog Box ---------------------------------------------------------
-    public void addNotes(String text){
+    public void addNotes(String text, String title){
 
-        String userId = auth.getCurrentUser().getUid();
-        NotesModel notes = new NotesModel(text, false, new Timestamp(new Date()), userId);
+        String userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
+        NotesModel notes = new NotesModel(text, title, false, new Timestamp(new Date()), userId);
 
         firebaseFirestore.collection("notes")
                 .add(notes)

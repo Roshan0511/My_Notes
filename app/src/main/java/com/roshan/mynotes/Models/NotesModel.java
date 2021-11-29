@@ -1,5 +1,7 @@
 package com.roshan.mynotes.Models;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.Timestamp;
 
 public class NotesModel {
@@ -8,12 +10,14 @@ public class NotesModel {
     boolean completed;
     Timestamp time;
     String userId;
+    String heading;
 
     public NotesModel() {
     }
 
-    public NotesModel(String note, boolean completed, Timestamp time, String userId) {
+    public NotesModel(String note,String heading, boolean completed, Timestamp time, String userId) {
         this.note = note;
+        this.heading = heading;
         this.completed = completed;
         this.time = time;
         this.userId = userId;
@@ -25,6 +29,14 @@ public class NotesModel {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getHeading() {
+        return heading;
+    }
+
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
     public boolean isCompleted() {
@@ -51,6 +63,7 @@ public class NotesModel {
         this.userId = userId;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "NotesModel{" +
@@ -58,6 +71,7 @@ public class NotesModel {
                 ", completed=" + completed +
                 ", time=" + time +
                 ", userId='" + userId + '\'' +
+                ", heading='" + heading + '\'' +
                 '}';
     }
 }

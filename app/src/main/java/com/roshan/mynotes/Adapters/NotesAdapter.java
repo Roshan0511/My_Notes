@@ -38,6 +38,7 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
     @Override
     protected void onBindViewHolder(@NonNull notesViewHolder holder, int position, @NonNull NotesModel notes) {
         holder.noteRv.setText(notes.getNote());
+        holder.headingRV.setText(notes.getHeading());
         holder.checkBox.setChecked(notes.isCompleted());
 
         CharSequence dateSequence = DateFormat.format("EEEE, MMM d, yyyy  h:mm:ss a", notes.getTime().toDate());
@@ -53,13 +54,14 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
 
     public class notesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView noteRv, date;
+        TextView noteRv, headingRV, date;
         CheckBox checkBox;
 
         public notesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             noteRv = itemView.findViewById(R.id.noteRV);
+            headingRV = itemView.findViewById(R.id.heading);
             date = itemView.findViewById(R.id.dateRV);
             checkBox = itemView.findViewById(R.id.checkBox);
 
@@ -87,9 +89,13 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
                     View view = LayoutInflater.from((Activity) v.getContext()).inflate(R.layout.edit_notes_dialog, null);
 
                     EditText editTextNote = view.findViewById(R.id.editNoteText);
+                    EditText editTextHeading = view.findViewById(R.id.editHeadingText);
                     NotesModel notesModel = snapshot.toObject(NotesModel.class);
                     editTextNote.setText(notesModel.getNote().toString());
                     editTextNote.setSelection(notesModel.getNote().length());
+
+                    editTextHeading.setText(notesModel.getHeading().toString());
+                    editTextHeading.setSelection(notesModel.getHeading().length());
 
                     AlertDialog alertDialog = new AlertDialog.Builder((Activity) v.getContext())
                             .setView(view)
@@ -97,7 +103,9 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     String newText = editTextNote.getText().toString();
+                                    String newHeading = editTextHeading.getText().toString();
                                     notesModel.setNote(newText);
+                                    notesModel.setHeading(newHeading);
                                     snapshot.getReference().set(notesModel);
                                 }
                             })

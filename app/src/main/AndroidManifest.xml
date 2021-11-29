@@ -9,6 +9,7 @@
         android:icon="@drawable/notes"
         android:label="@string/app_name"
         android:roundIcon="@drawable/notes"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNotes">
         <activity
