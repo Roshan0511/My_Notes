@@ -4,11 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -16,20 +14,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.roshan.mynotes.Adapters.NotesAdapter;
@@ -38,8 +29,6 @@ import com.roshan.mynotes.Models.NotesModel;
 import com.roshan.mynotes.databinding.ActivityMainBinding;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -62,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Recycler View ---------------------------------------------------------
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL));
         initRecyclerView(Objects.requireNonNull(auth.getCurrentUser()));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -70,32 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Floating Button -------------------------------------------------------
-        binding.floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                View view  = LayoutInflater.from(MainActivity.this).inflate(R.layout.notes_dialog, null);
+        binding.floatingActionButton.setOnClickListener(v -> {
+            View view  = LayoutInflater.from(MainActivity.this).inflate(R.layout.notes_dialog, null);
 
-                EditText noteEdit = view.findViewById(R.id.addNoteText);
-                EditText heading = view.findViewById(R.id.addHeadingText);
+            EditText noteEdit = view.findViewById(R.id.addNoteText);
+            EditText heading = view.findViewById(R.id.addHeadingText);
 
-                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
-                        .setView(view)
-                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                addNotes(noteEdit.getText().toString(), heading.getText().toString());
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .create();
+            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this)
+                    .setView(view)
+                    .setPositiveButton("Add", (dialog, which) -> addNotes(noteEdit.getText().toString(), heading.getText().toString()))
+                    .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                    .create();
 
-                alertDialog.show();
-            }
+            alertDialog.show();
         });
     }
 
@@ -110,18 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseFirestore.collection("notes")
                 .add(notes)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(MainActivity.this, "Note Added", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnSuccessListener(documentReference -> Toast.makeText(MainActivity.this, "Note Added", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(MainActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show());
     }
 
 
