@@ -1,16 +1,21 @@
 package com.roshan.mynotes.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -20,7 +25,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.roshan.mynotes.Models.NotesModel;
 import com.roshan.mynotes.R;
 
+import java.util.Random;
+
 public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdapter.notesViewHolder> {
+
+    Activity activity;
+
+    public NotesAdapter(@NonNull FirestoreRecyclerOptions<NotesModel> options, Activity activity) {
+        super(options);
+        this.activity = activity;
+    }
 
     public NotesAdapter(@NonNull FirestoreRecyclerOptions<NotesModel> options) {
         super(options);
@@ -47,6 +61,8 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
 
         TextView noteRv, headingRV, date;
         CheckBox checkBox;
+        CardView cardView;
+        ImageView share;
 
         public notesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,6 +71,8 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
             headingRV = itemView.findViewById(R.id.heading);
             date = itemView.findViewById(R.id.dateRV);
             checkBox = itemView.findViewById(R.id.checkBox);
+            cardView = itemView.findViewById(R.id.card_view);
+            share = itemView.findViewById(R.id.shareImg);
 
 
             //Check Box click ---------------------------------------------------------
@@ -67,6 +85,25 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
                     snapshot.getReference().update("completed", isChecked);
                 }
             });
+
+
+
+            //Share notes ---------------------------------------------------------
+            share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DocumentSnapshot snapshot = getSnapshots().getSnapshot(getAdapterPosition());
+                    NotesModel notesModel = snapshot.toObject(NotesModel.class);
+
+                    Intent i = new Intent(android.content.Intent.ACTION_SEND);
+                    i.setType("text/plain");
+                    i.putExtra(android.content.Intent.EXTRA_TEXT, notesModel.getNote() + " ~ " + notesModel.getHeading());
+                    activity.startActivity(Intent.createChooser(i, "Share Via..."));
+                }
+            });
+
+
+
 
 
             //Edit Note ---------------------------------------------------------
@@ -110,5 +147,6 @@ public class NotesAdapter extends FirestoreRecyclerAdapter<NotesModel, NotesAdap
 
             reference.delete();
         }
+
     }
 }

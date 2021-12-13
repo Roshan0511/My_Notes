@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/bg.xml" value="0.2846153846153846" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/border_layout_1.xml" value="0.2890625" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/btn_border.xml" value="0.2890625" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/edit_logo.xml" value="0.2846153846153846" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/ic_baseline_edit_note_24.xml" value="0.2846153846153846" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2846153846153846" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/note_bg.xml" value="0.2846153846153846" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_forget_password.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_forgot_password.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
@@ -13,9 +18,11 @@
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_sign_up.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/edit_notes_dialog.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/forget_password_dialog.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/notes_dialog.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/notes_layout.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/notes_layout.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/notes_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/layout/share_note.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Lenovo/AndroidStudioProjects/MyNotes/app/src/main/res/menu/menu_list.xml" value="0.27291666666666664" />
       </map>
     </option>

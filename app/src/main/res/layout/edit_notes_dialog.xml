@@ -9,18 +9,20 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/edit_note"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <EditText
         android:id="@+id/editHeadingText"
         android:layout_width="match_parent"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:layout_marginBottom="10dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
+        android:layout_marginBottom="20dp"
         android:hint="@string/heading"
-        android:layout_height="46dp"
+        android:layout_height="52dp"
         android:ems="10"
         android:inputType="text"
         android:background="@drawable/border_layout_1"/>
@@ -28,10 +30,10 @@
     <EditText
         android:id="@+id/editNoteText"
         android:layout_width="match_parent"
-        android:paddingStart="7dp"
-        android:paddingEnd="7dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
         android:hint="@string/note"
-        android:layout_height="46dp"
+        android:layout_height="52dp"
         android:ems="10"
         android:inputType="text"
         android:background="@drawable/border_layout_1"/>

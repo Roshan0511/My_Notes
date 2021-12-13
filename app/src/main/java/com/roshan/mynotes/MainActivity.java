@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 .setQuery(query, NotesModel.class)
                 .build();
 
-        notesAdapter = new NotesAdapter(options);
+        notesAdapter = new NotesAdapter(options, MainActivity.this);
         binding.recyclerView.setAdapter(notesAdapter);
     }
 
